@@ -2,7 +2,7 @@
 
 Simple example to set up Drone for Github. 
 
-## EC2, 
+## AWS EC2
 
 Note: For this example you need a domain in Route 53. TLS is used
 
