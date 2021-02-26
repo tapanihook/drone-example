@@ -1,0 +1,10 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: test-step-1
+  image: alpine:
+  commands:
+  - echo This is a Drone test step
