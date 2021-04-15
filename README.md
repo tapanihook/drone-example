@@ -29,6 +29,7 @@ $ sudo docker run \
   --env=DRONE_RPC_SECRET=<my-shared-secret> \
   --env=DRONE_SERVER_HOST=<my-domain> \
   --env=DRONE_SERVER_PROTO=https \
+  --env=DRONE_TLS_AUTOCERT=true \
   --publish=80:80 \
   --publish=443:443 \
   --restart=always \
