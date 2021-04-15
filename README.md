@@ -6,15 +6,21 @@ Simple example to set up Drone for Github.
 
 Note: For this example you need a domain in Route 53. TLS is used
 
-1. Launch an EC2 Linux instance. Assign Public IP
-2. Create an a-record pointing to the instance. Remember to check security group rules
-3. Create a shared secret
+1. Launch Amazon Linux instance and install Docker. Assign Public IP to instance.
+$ sudo yum update -y
+$ sudo yum install docker -y
+$ sudo service docker start
+$ sudo usermod -a -G docker ec2-user
+
+2. Assign Public IP to instance
+3. Create an a-record pointing to the instance. Remember to check security group rules
+4. Create a shared secret
 $ openssl rand -hex 16
-4. Create a GitHub OAuth app
+5. Create a GitHub OAuth app
 - Profile / Settings / Developer settings / OAuth apps / New OAuth app 
   - Authorization callback URL: <my-domain/login>
   - Note client id and secret
-5. Run Drone Server
+6. Run Drone Server
 ```
 $ sudo docker run \
   --volume=/var/lib/drone:/data \
@@ -31,7 +37,7 @@ $ sudo docker run \
   drone/drone:1
 ```
 
-6. Run Drone Runner(s)
+7. Run Drone Runner(s)
 ```
 sudo docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock \
