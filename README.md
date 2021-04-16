@@ -38,7 +38,7 @@ $ sudo docker run \
   drone/drone:1
 ```
 
-7. Run Drone Runner(s)
+7. (Optional) Run Drone Runner(s)
 ```
 sudo docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock \
@@ -51,4 +51,28 @@ sudo docker run -d \
   --restart always \
   --name runner \
   drone/drone-runner-docker:1
+```
+
+8. (Optional) Run Drone AutoScaler. Launches instance(s) if there are pending builds
+```
+sudo docker run -d \
+  -v /var/lib/autoscaler:/data \
+  -e DRONE_POOL_MIN=1 \
+  -e DRONE_POOL_MAX=2 \
+  -e DRONE_SERVER_PROTO=https \
+  -e DRONE_SERVER_HOST=<my-domain> \
+  -e DRONE_SERVER_TOKEN=<my-drone-personal-token> \
+  -e DRONE_AGENT_TOKEN=<my-shared-secret> \
+  -e DRONE_AMAZON_INSTANCE=t3.medium \
+  -e DRONE_AMAZON_REGION=eu-west-1 \
+  -e DRONE_AMAZON_SUBNET_ID=<aws-subnet-id> \
+  -e DRONE_AMAZON_SECURITY_GROUP=<aws-security-group-id> \
+  -e DRONE_AMAZON_SSHKEY=<my-aws-keypair> \
+  -e DRONE_LOGS_DEBUG=true \
+  -e AWS_ACCESS_KEY_ID=<> \
+  -e AWS_SECRET_ACCESS_KEY=<> \
+  -p 8080:8080 \
+  --restart=always \
+  --name=autoscaler \
+  drone/autoscaler
 ```
